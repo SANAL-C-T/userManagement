@@ -1,8 +1,15 @@
-import React from 'react'
+import React from "react";
+import Adminhomebody from "../component/Adminhome";
+import Footer from "../component/Footer";
+import AdminNavbar from "../component/AdminNavbar";
 
- const AdminHomepage = () => {
+const AdminHomepage = () => {
   return (
-    <div>AdminHomepage</div>
-  )
-}
+    <div className="adminHomepage">
+      <AdminNavbar />
+      <Adminhomebody />
+      <Footer />
+    </div>
+  );
+};
 export default AdminHomepage;

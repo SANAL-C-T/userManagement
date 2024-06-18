@@ -1,8 +1,10 @@
-import React from 'react'
-
- const Body = () => {
+import React from "react";
+import "../Css/body.css";
+const Body = () => {
   return (
-    <div>Body</div>
-  )
-}
+    <div className="Homebody">
+      <p>Hello user </p>
+    </div>
+  );
+};
 export default Body;

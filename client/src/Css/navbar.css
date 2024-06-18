@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .topNavbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: #969595;
+  }
+  
+  .topleftnavbar {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+.logoutButton{
+  width: 75px;
+  padding: 5px;
+}
+ 

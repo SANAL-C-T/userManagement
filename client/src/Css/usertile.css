@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.userTile {
+  margin: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  background: linear-gradient(to right, #000000, #1b4f72);
+ 
+}
+
+.userPrfile img {
+  height: 90px;
+  width: 90px;
+}
+
+.editbtn button {
+  width: 75px;
+  padding: 5px;
+}
+
+.deltbtn button {
+  width: 75px;
+  padding: 5px;
+  
+}
+
+
+.userNamae{
+    color: aliceblue;
+    justify-content: center;
+    align-content: center;
+}
+
+
+.editbtn  {
+    justify-content: center;
+    align-content: center;
+  }
+  
+  .deltbtn {
+    justify-content: center;
+    align-content: center;
+  }
