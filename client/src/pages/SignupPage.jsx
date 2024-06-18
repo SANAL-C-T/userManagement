@@ -1,22 +1,44 @@
 import React from "react";
-import SignUp from "../component/SignUp";
+import "../Css/signup.css";
+import signupImage from "../../public/signUpGraphics.svg";
+
 const SignupPage = () => {
   return (
-    <div className="signuppage">
-      <h3> Sign up</h3>
-      <div className="signupleft">{/* this contain a graphic image*/}</div>
+    <div >
+      <h2 className="signup-title">Sign up</h2>
 
+      <div className="signuppage">
+      <div className="signupleft">
+        <img src={signupImage} alt="Sign up Graphic" />
+      </div>
       <div className="signupright">
-       
-        {/* this contain the sign uo form*/}
-        <input type="text" placeholder="Enter Name"></input>
-        <input type="text" placeholder="Enter Email"></input>
-        <input type="text" placeholder="Enter Phone"></input>
-        <input type="password" placeholder="Enter Password"></input>
+        <form>
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" placeholder="Enter Name" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" placeholder="Enter Email" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="phone">Phone</label>
+            <input type="text" id="phone" placeholder="Enter Phone" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" placeholder="Enter Password" />
+          </div>
+          <div className="form-group">
+            <button className="btn-signup" type="submit">Sign up</button>
+          </div>
+        </form>
+      </div>
 
-        <button>Sign up</button>
+
       </div>
     </div>
   );
 };
+
 export default SignupPage;
