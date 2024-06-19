@@ -8,7 +8,8 @@
     display: flex;
     justify-content: flex-end;
     padding: 10px;
-    background-color: #969595;
+    background-color: #072a8a5d;
+    box-shadow: 1px 1px 6px 0px #343232;
   }
   
   .topleftnavbar {

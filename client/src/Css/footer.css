@@ -1,5 +1,6 @@
 .footer {
-    background-color: black;
+  background-color: #072a8ab7;
+  box-shadow: 1px 1px 6px 0px #343232;
     height: 55px;
     color: aliceblue;
     display: flex;

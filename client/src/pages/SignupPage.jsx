@@ -1,41 +1,149 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import "../Css/signup.css";
 import signupImage from "../../public/signUpGraphics.svg";
+import axios from "axios";
 
 const SignupPage = () => {
+
+
+  const name = useRef();
+  const email = useRef();
+  const phone = useRef();
+  const password = useRef();
+
+  const handleValidation = () => {
+    const namePattern = /^[a-zA-Z\s]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^\d+$/;
+
+    const inputName = name.current.value;
+    const inputEmail = email.current.value;
+    const inputPhone = phone.current.value;
+    const inputPassword = password.current.value;
+
+    let isValid = true;
+
+    if (
+      inputName === "" ||
+      /\d/.test(inputName) ||
+      !namePattern.test(inputName)
+    ) {
+      alert(
+        "Please enter a valid name without numbers and special characters."
+      );
+     
+      isValid = false;
+    } 
+
+    if (!emailPattern.test(inputEmail)) {
+      alert("Please enter a valid email address.");
+
+      isValid = false;
+    } 
+
+    if (inputPhone === "" || !phonePattern.test(inputPhone)) {
+      alert("Please enter a valid phone number.");
+     
+      isValid = false;
+    } 
+
+    if (inputPassword === "") {
+      alert("Please enter a password.");
+     
+      isValid = false;
+    } 
+
+    return isValid;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("validation:",handleValidation())
+
+
+
+    if (handleValidation()) {
+      const inputName = name.current.value;
+      const inputEmail = email.current.value;
+      const inputPhone = phone.current.value;
+      const inputPassword = password.current.value;
+
+      console.log("test:::",inputName,inputEmail,inputPhone,inputPassword)
+
+
+
+      axios.post("http://localhost:5000/api/signup", {
+        name: inputName,
+        email: inputEmail,
+        phone: inputPhone,
+        password: inputPassword,
+      })
+      .then((response) => {
+        console.log("Signup Successful:", response.data);
+      })
+      .catch((error) => {
+        console.error("Signup Failed:", error);
+      });
+    }
+  };
+
   return (
-    <div >
+    <div>
       <h2 className="signup-title">Sign up</h2>
 
       <div className="signuppage">
-      <div className="signupleft">
-        <img src={signupImage} alt="Sign up Graphic" />
-      </div>
-      <div className="signupright">
-        <form>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" placeholder="Enter Name" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="Enter Email" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="phone">Phone</label>
-            <input type="text" id="phone" placeholder="Enter Phone" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" placeholder="Enter Password" />
-          </div>
-          <div className="form-group">
-            <button className="btn-signup" type="submit">Sign up</button>
-          </div>
-        </form>
-      </div>
-
-
+        <div className="signupleft">
+          <img src={signupImage} alt="Sign up Graphic" />
+        </div>
+        <div className="signupright">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                placeholder="Enter Name"
+                ref={name}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter Email"
+                ref={email}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="phone">Phone</label>
+              <input
+                type="tel"
+                id="phone"
+                placeholder="Enter Phone"
+                ref={phone}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+                ref={password}
+              />
+            </div>
+            <div className="form-group">
+              <button
+                className="btn-signup"
+                type="submit"
+              >
+                Sign up
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

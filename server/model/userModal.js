@@ -4,12 +4,11 @@ require("../model/config");
 
 const userSchema=mongoose.Schema({
 
-    First_name: {
+    Name: {
         type: String,
+        required: true
     },
-    Last_name: {
-        type: String,
-    },
+   
     Email: {
         type: String,
         required: true
