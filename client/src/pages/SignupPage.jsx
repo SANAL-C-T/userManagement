@@ -1,16 +1,19 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import "../Css/signup.css";
 import signupImage from "../../public/signUpGraphics.svg";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {  tosignupUserpage  } from "../features/SignUpSlice"; 
 
 const SignupPage = () => {
-
-
   const name = useRef();
   const email = useRef();
   const phone = useRef();
   const password = useRef();
+  const dispatch = useDispatch();
+  const { loading, error, user } = useSelector((state) => state.FromStoreSignUp); 
 
+  console.log("Current state:", { loading, error, user });
+  
   const handleValidation = () => {
     const namePattern = /^[a-zA-Z\s]+$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,35 +26,25 @@ const SignupPage = () => {
 
     let isValid = true;
 
-    if (
-      inputName === "" ||
-      /\d/.test(inputName) ||
-      !namePattern.test(inputName)
-    ) {
-      alert(
-        "Please enter a valid name without numbers and special characters."
-      );
-     
+    if (inputName === "" || /\d/.test(inputName) || !namePattern.test(inputName)) {
+      alert("Please enter a valid name without numbers and special characters.");
       isValid = false;
-    } 
+    }
 
     if (!emailPattern.test(inputEmail)) {
       alert("Please enter a valid email address.");
-
       isValid = false;
-    } 
+    }
 
     if (inputPhone === "" || !phonePattern.test(inputPhone)) {
       alert("Please enter a valid phone number.");
-     
       isValid = false;
-    } 
+    }
 
     if (inputPassword === "") {
       alert("Please enter a password.");
-     
       isValid = false;
-    } 
+    }
 
     return isValid;
   };
@@ -59,39 +52,35 @@ const SignupPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("validation:",handleValidation())
-
-
-
     if (handleValidation()) {
       const inputName = name.current.value;
       const inputEmail = email.current.value;
       const inputPhone = phone.current.value;
       const inputPassword = password.current.value;
 
-      console.log("test:::",inputName,inputEmail,inputPhone,inputPassword)
-
-
-
-      axios.post("http://localhost:5000/api/signup", {
-        name: inputName,
-        email: inputEmail,
-        phone: inputPhone,
-        password: inputPassword,
-      })
-      .then((response) => {
-        console.log("Signup Successful:", response.data);
-      })
-      .catch((error) => {
-        console.error("Signup Failed:", error);
-      });
+      dispatch(
+        tosignupUserpage ({
+          name: inputName,
+          email: inputEmail,
+          phone: inputPhone,
+          password: inputPassword,
+        })
+      )
+        .unwrap()
+        .then((result) => {
+          console.log("Signup Successful:", result);
+          // Navigate to success page or handle success scenario
+        })
+        .catch((error) => {
+          console.error("Signup Failed:", error);
+          // Display error message or handle error scenario
+        });
     }
   };
 
   return (
     <div>
       <h2 className="signup-title">Sign up</h2>
-
       <div className="signuppage">
         <div className="signupleft">
           <img src={signupImage} alt="Sign up Graphic" />
@@ -100,49 +89,28 @@ const SignupPage = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                placeholder="Enter Name"
-                ref={name}
-              />
+              <input type="text" id="name" placeholder="Enter Name" ref={name} />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                placeholder="Enter Email"
-                ref={email}
-              />
+              <input type="email" id="email" placeholder="Enter Email" ref={email} />
             </div>
             <div className="form-group">
               <label htmlFor="phone">Phone</label>
-              <input
-                type="tel"
-                id="phone"
-                placeholder="Enter Phone"
-                ref={phone}
-              />
+              <input type="tel" id="phone" placeholder="Enter Phone" ref={phone} />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter Password"
-                ref={password}
-              />
+              <input type="password" id="password" placeholder="Enter Password" ref={password} />
             </div>
             <div className="form-group">
-              <button
-                className="btn-signup"
-                type="submit"
-              >
-                Sign up
+              <button className="btn-signup" type="submit" disabled={loading}>
+                {loading ? "Signing up..." : "Sign up"}
               </button>
             </div>
           </form>
+          {error && <div className="error">{error}</div>}
+          {user && <div className="success">Signup successful! {user.name}</div>}
         </div>
       </div>
     </div>

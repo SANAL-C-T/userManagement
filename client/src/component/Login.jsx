@@ -1,32 +1,75 @@
-import React from "react";
+import React, { useRef, } from "react";
 import "../Css/login.css";
 import loginImage from "../../public/loginGraphics.svg";
+import { ToUserLoginPage } from "../features/LoginSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const Navigate=useNavigate()
+  const { loading, error } = useSelector((state) => state.FromStoreLogin);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    // Dispatch the login action
+    dispatch(
+      ToUserLoginPage({
+        email,
+        password,
+      })
+    )
+      .unwrap()// Unwrap the promise to get the payload or error directly
+      .then((result) => {
+        console.log("Login Successful:", result.user.id);
+        Navigate(`/homepage/${result.user.id}`);  //pass the userid in params
+      })
+      .catch((err) => {
+        console.error("Login Failed:", err);
+        Navigate('/');
+      });
+
+    emailRef.current.value = "";
+    passwordRef.current.value = "";
+  };
+
   return (
     <div>
-     
       <div className="loginpage">
-
-        <form className="leftForm">
-
-        <h2 className="login-title">Login</h2>
-        <br></br>
-          {/* User mail id input */}
+        <form className="leftForm" onSubmit={handleSubmit}>
+          <h2 className="login-title">Login</h2>
+          <br />
           <div className="form-group">
             <label htmlFor="email">User mail id</label>
-            <input type="email" id="email" placeholder="Enter the Email" />
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter the Email"
+              ref={emailRef}
+            />
           </div>
 
-          {/* Password input */}
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" placeholder="Enter password" />
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter password"
+              ref={passwordRef}
+            />
           </div>
 
-          {/* Login button */}
           <div className="form-group">
-            <button className="btn1" type="submit">LOGIN</button>
+            <button className="btn1" type="submit">
+              {loading ? "Logging in..." : "LOGIN"}
+            </button>
+            {error && <p className="error-message">{error}</p>}
           </div>
         </form>
 
