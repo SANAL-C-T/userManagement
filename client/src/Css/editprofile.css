@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.title{
+    text-align: center;
+    margin: 20px;
+}
+
+form{
+    margin-left: 30%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.editname,.editphone,.addprofilepic{
+    width: 200px;
+    height: 25px;
+    margin: 20px;
+    padding: 5px;
+}
+.container{
+    height: 100vh;
+}
+
+.savebutton{
+    width: 220px;
+    padding: 5px;
+}
+
+.imgsection{
+    display: flex;
+    margin: 20px;
+}
+
+.leftInput{
+    border: 2px solid rgb(231, 18, 18);
+}
+
+.rightInput{
+    border: 2px solid rgb(15, 203, 81);
+    width: 150px;
+    height: 150px;
+}

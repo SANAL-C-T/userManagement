@@ -7,8 +7,10 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const dispatch = useDispatch();
+
+
   const Navigate=useNavigate()
-  const { loading, error } = useSelector((state) => state.FromStoreLogin);
+  const { loading, user, error } = useSelector((state) => state.FromStoreLogin);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -19,16 +21,12 @@ const Login = () => {
     const password = passwordRef.current.value;
 
     // Dispatch the login action
-    dispatch(
-      ToUserLoginPage({
-        email,
-        password,
-      })
-    )
+    dispatch(ToUserLoginPage({email,password,}))
       .unwrap()// Unwrap the promise to get the payload or error directly
       .then((result) => {
-        console.log("Login Successful:", result.user.id);
-        Navigate(`/homepage/${result.user.id}`);  //pass the userid in params
+        console.log("Login Successful:");
+        // Navigate(`/homepage/${result.user.id}`);  //pass the userid in params
+        Navigate("/homepage");  //pass the userid in params
       })
       .catch((err) => {
         console.error("Login Failed:", err);

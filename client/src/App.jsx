@@ -5,14 +5,17 @@ import SignupPage from "./pages/SignupPage";
 import Homepage from "./pages/Homepage";
 import AdminHome from "./pages/AdminHomepage";
 import AdminCanEdit from "./pages/AdminCanEdit";
-
+import EditprofilePage from "./pages/EditProfilepage";
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/homepage/:id" element={<Homepage />} />
+        <Route path="/homepage" element={<Homepage />} />
+        <Route path="/editprofile" element={<EditprofilePage />} />
+
+      
         <Route path="/adminHome" element={<AdminHome />} />
         <Route path="/adminEdit" element={<AdminCanEdit />} />
       </Routes>

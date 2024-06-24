@@ -1,31 +1,31 @@
-*{
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.Homebody{
-min-height: 82vh;
-display: flex;
-justify-content: space-between;
-padding: 40px;
-background-color: rgb(211, 223, 217);
-
+.Homebody {
+  min-height: 82vh;
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  background-color: rgb(211, 223, 217);
 }
 
-.left{
-
-width:250px
+.left {
+  width: 250px;
 }
 
-.right{
-   
-    width:250px
+.right {
+  width: 250px;
 }
 
-.middle{
+.right img {
+  height: 100px;
+  width: 100px;
+}
 
-    width:250px;
-    text-align: center;
-    
+.middle {
+  width: 250px;
+  text-align: center;
 }

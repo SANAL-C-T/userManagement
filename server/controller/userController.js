@@ -51,7 +51,7 @@ const Login = async (req, res) => {
         console.log("is logged")
 
         res.status(201).json({
-          user: { id: UserExistInDb.id },
+          user: { Name: UserExistInDb.Name,Email:UserExistInDb.Email,Phone:UserExistInDb.Phone },
           message: "Signup successful",
         });
 

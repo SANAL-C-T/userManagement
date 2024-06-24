@@ -7,7 +7,7 @@ import loginReducer from "../features/LoginSlice";
 const store = configureStore({
   reducer: {
     FromStoreSignUp: signupReducer,
-    FromStoreLogin:loginReducer,
+    FromStoreLogin: loginReducer,
   },
 });
 
