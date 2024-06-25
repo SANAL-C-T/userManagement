@@ -9,15 +9,24 @@
   display: flex;
   justify-content: space-between;
   padding: 40px;
-  background-color: rgb(211, 223, 217);
+  margin: 0 auto;
+  background-color: #f9f9f9;
 }
 
 .left {
   width: 250px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
 }
 
 .right {
   width: 250px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
 }
 
 .right img {
@@ -26,6 +35,9 @@
 }
 
 .middle {
-  width: 250px;
+  width: 450px;
   text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
 }

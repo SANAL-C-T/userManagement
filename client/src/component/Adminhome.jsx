@@ -11,12 +11,7 @@ const Adminhomebody = () => {
     <div className="Adminhomebody">
       <Searchbar />
       <UserTiles/>
-      <UserTiles/>
-      <UserTiles/>
-
-      <UserTiles/>
-      <UserTiles/>
-      <UserTiles/>
+    
     </div>
   );
 };

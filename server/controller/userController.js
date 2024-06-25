@@ -51,7 +51,12 @@ const Login = async (req, res) => {
         console.log("is logged")
 
         res.status(201).json({
-          user: { Name: UserExistInDb.Name,Email:UserExistInDb.Email,Phone:UserExistInDb.Phone },
+          Name: UserExistInDb.Name,
+          Email: UserExistInDb.Email,
+          Phone: UserExistInDb.Phone,
+          Profile:UserExistInDb.Profile,
+          IsAdmin:UserExistInDb.isAdmin,
+          IsDeleted:UserExistInDb.Deleted,
           message: "Signup successful",
         });
 
@@ -61,11 +66,7 @@ const Login = async (req, res) => {
     } else {
       return res.status(400).json({ error: "User does not exists, sign up" });
     }
-
-
     console.log(inputemail, inputpassword)
-
-
     //need to add JWT loggics................
   }
   catch (error) {
@@ -75,19 +76,27 @@ const Login = async (req, res) => {
 }
 
 
-
-//this is user home page
-const Homepage = async (req, res) => {
+const Editprofilepage = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const user = await userData.findById(userId);
-    console.log("from server home:", userId)
-    console.log("from userdata:", user)
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+const name=req.body.name;
+const phonenumber=req.body.phone;
+const urlOFprofilePic=req.file.filename;
+const email=req.body.email;
 
-    res.status(200).json(user);
+    console.log("middleware post:::", req.body.name)
+    console.log(" incoming images::::", req.file.filename)
+    const User = await userData.findOneAndUpdate(
+      { Email: email },
+      {
+        $set: {
+          Name: name,
+          Phone: phonenumber,
+          Profile: `/${urlOFprofilePic}`
+        }
+      },
+      { new: true } // This option returns the updated document
+    );
+    res.status(200).json(User);
   }
   catch (error) {
     res.status(500).json({ message: error.message });
@@ -96,4 +105,4 @@ const Homepage = async (req, res) => {
 
 
 
-module.exports = { signup, Login, Homepage };
+module.exports = { signup, Login, Editprofilepage };
