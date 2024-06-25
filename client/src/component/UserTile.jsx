@@ -1,10 +1,17 @@
 import React from "react";
-
+import { useEffect,useState } from "react";
 import test from '../../public/testprofileimg.png'
 import"../Css/usertile.css"
 
 
+
 const userTile = () => {
+  const [user,setUser]=useState();
+
+  useEffect(()=>{
+
+  })
+  
   return (
     <div className="userTile">
       <div className="userPrfile"><img src={test}></img></div>
