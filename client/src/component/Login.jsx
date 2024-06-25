@@ -1,7 +1,7 @@
 import React, { useRef, } from "react";
 import "../Css/login.css";
 import loginImage from "../../public/loginGraphics.svg";
-import { ToUserLoginPage } from "../features/LoginSlice";
+import { ToUserLoginPage } from "../features/LoginSlice";//this is an action,written in slice file.
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 

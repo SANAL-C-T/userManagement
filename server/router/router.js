@@ -14,7 +14,7 @@ allRoute.post('/uploadEdits', multerUploads.profileImage, userController.Editpro
 
 
 //adminRelated
-
+allRoute.get("/FetchUser", adminController.getUsersOnload);
 
 
 

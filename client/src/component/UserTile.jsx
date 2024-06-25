@@ -1,26 +1,43 @@
 import React from "react";
-import { useEffect,useState } from "react";
-import test from '../../public/testprofileimg.png'
-import"../Css/usertile.css"
+import { useSelector } from "react-redux";
 
+import "../Css/usertile.css";
 
+const UserTiles = () => {
+  const { loading, users, error } = useSelector((state) => state.FromStoreAdmin);
 
-const userTile = () => {
-  const [user,setUser]=useState();
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  useEffect(()=>{
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
-  })
-  
+  if (!users || users.length === 0) {
+    return <div>No users found.</div>;
+  }
+
   return (
-    <div className="userTile">
-      <div className="userPrfile"><img src={test}></img></div>
-      <div className="userNamae">sanal</div>
-      <div className="userNamae">1234567890</div>
-      <div className="userNamae">sanal@gmail.com</div>
-      <div className="editbtn"><button>EDIT</button></div>
-      <div className="deltbtn"><button>DELETE</button></div>
+    <div className="userTilesContainer">
+      {users.map((user) => (
+        <div className="userTile" key={user.Email}>
+          <div className="userProfile">
+            <img src={`http://localhost:5000${user.Profile}`} />
+          </div>
+          <div className="userName">{user.Name}</div>
+          <div className="userPhone">{user.Phone}</div>
+          <div className="userEmail">{user.Email}</div>
+          <div className="editBtn">
+            <button>EDIT</button>
+          </div>
+          <div className="deleteBtn">
+            <button>DELETE</button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
-export default userTile;
+
+export default UserTiles;

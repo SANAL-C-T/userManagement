@@ -2,12 +2,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import signupReducer from '../features/SignUpSlice';
 import loginReducer from "../features/LoginSlice";
+import AdminReducer from "../features/AdminSlice"
 
 
 const store = configureStore({
   reducer: {
     FromStoreSignUp: signupReducer,
     FromStoreLogin: loginReducer,
+    FromStoreAdmin:AdminReducer
   },
 });
 

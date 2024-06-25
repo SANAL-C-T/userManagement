@@ -12,6 +12,7 @@ app.use(express.static('uploads'));
 const urlRoutes=require("./router/router")
 app.use('/api', urlRoutes);
 
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });
