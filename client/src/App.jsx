@@ -6,6 +6,7 @@ import Homepage from "./pages/Homepage";
 import AdminHome from "./pages/AdminHomepage";
 import AdminCanEdit from "./pages/AdminCanEdit";
 import EditprofilePage from "./pages/EditProfilepage";
+import './App.css'
 const App = () => {
   return (
     <Router>

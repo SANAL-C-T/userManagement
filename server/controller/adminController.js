@@ -6,7 +6,8 @@ const getUsersOnload = async (req, res) => {
     try {
       const { page = 1, limit = 10 } = req.query;
       const skip = (page - 1) * limit;
-      const users = await userData.find().skip(skip).limit(Number(limit));
+      const users = await userData.find({ isAdmin: false }).skip(skip).limit(limit);
+      const count = await userData.countDocuments({ isAdmin: false });
     //   console.log(users)
     //   res.status(200).json({
     //     Name:users.Name,
@@ -25,9 +26,10 @@ const getUsersOnload = async (req, res) => {
         Deleted: user.Deleted,
         isAdmin: user.isAdmin,
         Profile: user.Profile,
+        
       }));
   
-      console.log(userDetails);
+      console.log(userDetails,count);
       res.status(200).json(userDetails);
 
     } catch (error) {

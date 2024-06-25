@@ -12,7 +12,7 @@
   display: grid;
   grid-template-columns: auto 1fr 1fr 1fr auto auto;
   align-items: center;
-  background: linear-gradient(to right, #000000, #1b4f72);
+  background: linear-gradient(to right, #04152a,rgb(9, 127, 189));
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -23,7 +23,8 @@
   width: 90px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgb(255, 253, 253);
+  border: 2px solid rgb(254, 255, 255);
+
 }
 
 
