@@ -18,7 +18,7 @@ allRoute.get("/FetchUser", adminController.getUsersOnload);
 allRoute.post("/uploadAdminEdits",multerUploads.profileImage, adminController.saveEdits);
 allRoute.post("/deleteUserByAdmin", adminController.deleteUser);
 allRoute.post("/createUser", userController.signup);
-
+allRoute.post("/FetchAllSearch",adminController.searchit);
 
 
 module.exports = allRoute; 

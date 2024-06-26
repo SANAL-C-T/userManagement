@@ -5,7 +5,7 @@ import { getUserToEdit, deleteUserByAdmin } from "../features/AdminSlice";
 import "../Css/usertile.css";
 
 const UserTiles = () => {
-  const { loading, users, error } = useSelector((state) => state.FromStoreAdmin);
+  const { loading, users, error ,search } = useSelector((state) => state.FromStoreAdmin);
   const navigate = useNavigate();
   const dispatch = useDispatch(); 
 
@@ -34,24 +34,44 @@ const UserTiles = () => {
   }
 
   return (
-    <div className="userTilesContainer">
-      {users.map((user, index) => (
-        <div className="userTile" key={user.Email}>
-          <div className="userProfile">
-            <img src={`http://localhost:5000${user.Profile}`} />
-          </div>
-          <div className="userName">{user.Name}</div>
-          <div className="userPhone">{user.Phone}</div>
-          <div className="userEmail">{user.Email}</div>
-          <div className="editBtn">
-            <button onClick={() => handleAdminEdit(index)}>EDIT</button>
-          </div>
-          <div className="deleteBtn">
-            <button onClick={() => handleDeleteByAdmin(index)}>DELETE</button>
-          </div>
+<div className="userTilesContainer">
+  {search ? (
+    search.map((user, index) => (
+      <div className="userTile" key={user.Email}>
+        <div className="userProfile">
+          <img src={`http://localhost:5000${user.Profile}`} alt="user profile" />
         </div>
-      ))}
-    </div>
+        <div className="userName">{user.Name}</div>
+        <div className="userPhone">{user.Phone}</div>
+        <div className="userEmail">{user.Email}</div>
+        <div className="editBtn">
+          <button onClick={() => handleAdminEdit(index)}>EDIT</button>
+        </div>
+        <div className="deleteBtn">
+          <button onClick={() => handleDeleteByAdmin(index)}>DELETE</button>
+        </div>
+      </div>
+    ))
+  ) : (
+    users.map((user, index) => (
+      <div className="userTile" key={user.Email}>
+        <div className="userProfile">
+          <img src={`http://localhost:5000${user.Profile}`} alt="user profile" />
+        </div>
+        <div className="userName">{user.Name}</div>
+        <div className="userPhone">{user.Phone}</div>
+        <div className="userEmail">{user.Email}</div>
+        <div className="editBtn">
+          <button onClick={() => handleAdminEdit(index)}>EDIT</button>
+        </div>
+        <div className="deleteBtn">
+          <button onClick={() => handleDeleteByAdmin(index)}>DELETE</button>
+        </div>
+      </div>
+    ))
+  )}
+</div>
+
   );
 };
 

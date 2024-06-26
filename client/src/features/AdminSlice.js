@@ -6,6 +6,7 @@ const initialState = {
   users: null,
   error: null,
   userToEdit: null,
+  search:null
 };
 
 export const getUser = createAsyncThunk(
@@ -46,6 +47,18 @@ export const deleteUserByAdmin = createAsyncThunk(
   }
 );
 
+export const searchUser = createAsyncThunk(
+  "adminhomepage/searchUsers",
+  async (val) => {
+    console.log("val:::",val)
+    try {
+      const response = await axios.post("http://localhost:5000/api/FetchAllSearch", val);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data || "Failed to search user");
+    }
+  }
+);
 
 
 
@@ -61,12 +74,17 @@ export const createUser = createAsyncThunk(
   }
 );
 
-
-
 export const getUserToEdit = (userToEdit) => ({
   type: 'adminhomepage/getUserToEdit',
   payload: userToEdit,
 });
+
+export const setNull=()=>({
+type:"adminhomepage/setSearchNull",
+payload: null,
+})
+
+
 
 const AdminSlice = createSlice({
   name: "adminhomepage",
@@ -75,6 +93,10 @@ const AdminSlice = createSlice({
     getUserToEdit: (state, action) => {
       state.userToEdit = action.payload;
     },
+
+    setNull:(state)=>{
+      state.search=null;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -118,7 +140,22 @@ const AdminSlice = createSlice({
       .addCase(deleteUserByAdmin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to delete user";
-      });
+      })
+      .addCase(searchUser.pending, (state) => {
+        state.loading = true;
+        state.search = null;
+        state.error = null;
+      })
+      .addCase(searchUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.search = action.payload;
+        state.error = null;
+      })
+      .addCase(searchUser.rejected, (state, action) => {
+        state.loading = false;
+        state.search = null;
+        state.error = action.error.message || "Failed to get users";
+      })
   },
 });
 

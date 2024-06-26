@@ -89,11 +89,27 @@ const deleteUser = async (req, res) => {
   }
 }
 
-
-
-const createUser = async (req, res) => {
+const searchit = async (req, res) => {
   try {
-    console.log("this is admin creating ::::", req.body)
+    console.log("req.body:::", req.body.val)
+    const searchedUser = await userData.find({ Name: req.body.val });
+
+    console.log("searched LENGTH:::", searchedUser.length)
+    if (searchedUser.length != 0) {
+      const searchedUserDetails = searchedUser.map(user => ({
+        Name: user.Name,
+        Email: user.Email,
+        Phone: user.Phone,
+        Deleted: user.Deleted,
+        isAdmin: user.isAdmin,
+        Profile: user.Profile,
+
+      }));
+      res.status(200).json(searchedUserDetails);
+    } else {
+      res.status(200).json(null);
+    }
+ 
   }
   catch (error) {
     res.status(500).json({ message: error.message });
@@ -101,4 +117,5 @@ const createUser = async (req, res) => {
 }
 
 
-module.exports = { getUsersOnload, saveEdits, deleteUser, createUser}
+
+module.exports = { getUsersOnload, saveEdits, deleteUser, searchit }
