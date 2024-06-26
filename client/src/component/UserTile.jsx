@@ -1,26 +1,41 @@
 import React from "react";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getUserToEdit, deleteUserByAdmin } from "../features/AdminSlice";
 import "../Css/usertile.css";
 
 const UserTiles = () => {
   const { loading, users, error } = useSelector((state) => state.FromStoreAdmin);
+  const navigate = useNavigate();
+  const dispatch = useDispatch(); 
+
+  const handleAdminEdit = (index) => {
+    const user = users[index];
+    dispatch(getUserToEdit(user));
+    navigate("/adminEdit");
+  };
+
+  const handleDeleteByAdmin = (index) => {
+    const userToDelete = users[index];
+    dispatch(deleteUserByAdmin({ email: userToDelete.Email }));
+    navigate("/adminHome");
+  };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="noUser">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="noUser">Error: {error}</div>;
   }
 
   if (!users || users.length === 0) {
-    return <div>No users found.</div>;
+    return <div className="noUser">No users found</div>;
   }
 
   return (
     <div className="userTilesContainer">
-      {users.map((user) => (
+      {users.map((user, index) => (
         <div className="userTile" key={user.Email}>
           <div className="userProfile">
             <img src={`http://localhost:5000${user.Profile}`} />
@@ -29,10 +44,10 @@ const UserTiles = () => {
           <div className="userPhone">{user.Phone}</div>
           <div className="userEmail">{user.Email}</div>
           <div className="editBtn">
-            <button>EDIT</button>
+            <button onClick={() => handleAdminEdit(index)}>EDIT</button>
           </div>
           <div className="deleteBtn">
-            <button>DELETE</button>
+            <button onClick={() => handleDeleteByAdmin(index)}>DELETE</button>
           </div>
         </div>
       ))}

@@ -15,6 +15,9 @@ allRoute.post('/uploadEdits', multerUploads.profileImage, userController.Editpro
 
 //adminRelated
 allRoute.get("/FetchUser", adminController.getUsersOnload);
+allRoute.post("/uploadAdminEdits",multerUploads.profileImage, adminController.saveEdits);
+allRoute.post("/deleteUserByAdmin", adminController.deleteUser);
+
 
 
 
