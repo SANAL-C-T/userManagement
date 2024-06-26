@@ -6,6 +6,7 @@ import Homepage from "./pages/Homepage";
 import AdminHome from "./pages/AdminHomepage";
 import AdminCanEdit from "./pages/AdminCanEdit";
 import EditprofilePage from "./pages/EditProfilepage";
+import AdminCreateUser from './pages/AdminCreateNewUser'
 import './App.css'
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       
         <Route path="/adminHome" element={<AdminHome />} />
         <Route path="/adminEdit" element={<AdminCanEdit />} />
+        <Route path="/adminCreateUser" element={<AdminCreateUser />} />
       </Routes>
     </Router>
   );

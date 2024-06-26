@@ -69,11 +69,9 @@ const SignupPage = () => {
         .unwrap()
         .then((result) => {
           console.log("Signup Successful:", result);
-          // Navigate to success page or handle success scenario
         })
         .catch((error) => {
           console.error("Signup Failed:", error);
-          // Display error message or handle error scenario
         });
     }
   };
@@ -110,7 +108,7 @@ const SignupPage = () => {
             </div>
           </form>
           {error && <div className="error">{error}</div>}
-          {user && <div className="success">Signup successful! {user.name}</div>}
+          {user && <div className="success">Signup successful!</div>}
         </div>
       </div>
     </div>

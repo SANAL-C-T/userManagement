@@ -46,6 +46,23 @@ export const deleteUserByAdmin = createAsyncThunk(
   }
 );
 
+
+
+
+export const createUser = createAsyncThunk(
+  "adminhomepage/createUser",
+  async (newUser) => {
+    try {
+      const response = await axios.post("http://localhost:5000/api/createUser", newUser);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data || "Failed to create user");
+    }
+  }
+);
+
+
+
 export const getUserToEdit = (userToEdit) => ({
   type: 'adminhomepage/getUserToEdit',
   payload: userToEdit,

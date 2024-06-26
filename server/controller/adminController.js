@@ -90,4 +90,15 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = { getUsersOnload, saveEdits, deleteUser }
+
+const createUser = async (req, res) => {
+  try {
+    console.log("this is admin creating ::::", req.body)
+  }
+  catch (error) {
+    console.log(error.message)
+  }
+}
+
+
+module.exports = { getUsersOnload, saveEdits, deleteUser, createUser}
