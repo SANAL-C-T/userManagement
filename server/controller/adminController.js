@@ -96,7 +96,7 @@ const createUser = async (req, res) => {
     console.log("this is admin creating ::::", req.body)
   }
   catch (error) {
-    console.log(error.message)
+    res.status(500).json({ message: error.message });
   }
 }
 
