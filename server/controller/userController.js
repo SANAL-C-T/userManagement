@@ -1,5 +1,9 @@
 const userData = require("../model/userModal");
+const JWT =require ("jsonwebtoken");
+// const JWTcode= process.env.JWT_SECRET;
 
+
+const JWTcode="ALLGOODJWTCODE";
 const signup = async (req, res) => {
   const { name, email, phone, password } = req.body;
 
@@ -12,7 +16,7 @@ const signup = async (req, res) => {
       return res.status(400).json({ error: "User already exists" });
     }
 
-    // Create new user
+    // if not create new user
     const newUser = new userData({
       Name: name,
       Email: email,
@@ -20,10 +24,10 @@ const signup = async (req, res) => {
       Phone: phone,
     });
 
-    // Save user to the database
+    // Save user to the DB
     await newUser.save();
 
-    // Send a success response with user details (excluding password)
+    
     res.status(201).json({
       user: {
         id: newUser._id,
@@ -48,8 +52,12 @@ const Login = async (req, res) => {
     const UserExistInDb = await userData.findOne({ Email: inputemail });
     if (UserExistInDb) {
       if (UserExistInDb.Password === inputpassword) {
-        console.log("is logged")
+       
+        const token = JWT.sign({ email: UserExistInDb.Email, id: UserExistInDb._id }, JWTcode, { expiresIn: '2h' });
+        console.log("token::",token)
 
+        console.log("is logged")
+      
         res.status(201).json({
           Name: UserExistInDb.Name,
           Email: UserExistInDb.Email,
@@ -58,19 +66,23 @@ const Login = async (req, res) => {
           IsAdmin:UserExistInDb.isAdmin,
           IsDeleted:UserExistInDb.Deleted,
           message: "Signup successful",
+          token,
+          message: "Login successful.",
         });
+
 
       } else {
         console.log("not logged")
+        return res.status(401).json({ error: "Invalid password" });
       }
     } else {
       return res.status(400).json({ error: "User does not exists, sign up" });
     }
     console.log(inputemail, inputpassword)
-    //need to add JWT loggics................
+   
   }
   catch (error) {
-    return res.status(400)
+    return res.status(500).json({ error: "Internal server error" });
   }
 
 }
@@ -105,4 +117,14 @@ const email=req.body.email;
 
 
 
-module.exports = { signup, Login, Editprofilepage };
+
+const Logout=async(req,res)=>{
+  try{
+
+  }
+  catch(error){
+    console.log(error.message)
+  }
+}
+
+module.exports = { signup, Login, Editprofilepage ,Logout};

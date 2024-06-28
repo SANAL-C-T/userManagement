@@ -13,17 +13,15 @@ const initialState = {
 //this is the action creator.
 export const tosignupUserpage = createAsyncThunk('signup/signupUser', async (userData) => {
   try {
-    const response = await axios.post("http://localhost:5000/api/signup", userData);//from here we pass the user input and url to backend.
+    const response = await axios.post("http://localhost:5000/api/signup", userData);
     console.log("slice getting response::", response.data);
-    return response.data; //receies the success or failure message from backend.
+    return response.data; 
   } catch (error) {
     throw error.response.data; 
   }
 });
 
 
-
-//this functions reducer takes the action and perform the task.
 const signupSlice = createSlice({
   name: 'signup',
   initialState,

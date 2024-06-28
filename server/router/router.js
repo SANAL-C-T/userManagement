@@ -4,12 +4,13 @@ const allRoute = express.Router();
 const userController = require("../controller/userController");
 const adminController=require("../controller/adminController")
 const multerUploads=require("../middleware/uploadImage")
+const JWTauth=require("../middleware/Auth")
 
 //userRelated
 allRoute.post("/signup", userController.signup);
 allRoute.post("/login", userController.Login);
-allRoute.post('/uploadEdits', multerUploads.profileImage, userController.Editprofilepage);
-
+allRoute.post('/uploadEdits', multerUploads.profileImage,JWTauth, userController.Editprofilepage);
+allRoute.post("/logout", userController.Logout);
 //common
 
 
